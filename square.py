@@ -1,5 +1,10 @@
-a = 2
 
-b = a**2
+original_number = 2
 
-print(b)
+
+def square(number):
+
+    return number**2
+
+
+print(square(original_number))

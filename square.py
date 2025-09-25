@@ -7,4 +7,9 @@ def square(number):
     return number**2
 
 
-print(square(original_number))
+def main():
+    print(square(original_number))
+
+
+if __name__ == "__main__":
+    main()

@@ -1,9 +1,12 @@
+import time
 
-def pythagorean_triplets(limit):
+def pythagorean_triplets_brute_force(limit: int) -> list[list[int]]:
 
+    if not isinstance(limit, int):
+        raise TypeError("Limit is of the wrong type")
+    
     x = 0
     y = 0
-
     results = []
 
     for z in range(1, limit + 1):
@@ -15,27 +18,50 @@ def pythagorean_triplets(limit):
 
     return results
 
-"""
 
-Future topics
-1. Tuples vs List
+def square_list(int_list: list[int]) -> list[int]:
+    return [x**2 for x in int_list]
 
-Input -> Nothing
+def add_list(list1: list[int], list2: list[int]) -> dict[tuple, int]:
+    # return [x1 +x2 for x1, x2 in zip(list1, list2)]
 
-1. initialize
-2. Loops
-3. Loops
-4. Loops
-5. Checks
-6. Prints
-"""
+    dictionary = {}
+    for x1 in list1:
+        for x2 in list2:
+            dictionary[(x1, x2)] = x1 + x2
+
+    return dictionary
+
+
+def pythagorean_triplets_smart(limit: int) -> list[list[int]]:
+
+    results = []
+
+    nums = list(range(1, limit + 1))
+    squares = square_list(nums)
+    added_squares = add_list(squares, squares)
+
+    for key, value in added_squares.items():
+        if value in squares:
+            results.append([int(key[0] ** 0.5), int(key[1] ** 0.5), int(value ** 0.5)])
+
+    return results
+
 
 def main():
-    limit = 20
-    triplets = pythagorean_triplets(limit)
 
-    print(triplets)
+    limit = 100
+    
+    start_time = time.time()
+    pythagorean_triplets_smart(limit)
+    end_time = time.time()
+    print(f"Execution took {end_time - start_time} seconds")
 
+
+    start_time = time.time()
+    pythagorean_triplets_brute_force(limit)
+    end_time = time.time()
+    print(f"Execution took {end_time - start_time} seconds")
 
 
 if __name__ == "__main__":
